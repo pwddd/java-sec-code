@@ -348,6 +348,9 @@ public class XXE {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             SAXParser saxParser = spf.newSAXParser();
             XMLReader xmlReader = saxParser.getXMLReader();
+            xmlReader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            xmlReader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             xmlReader.parse(new InputSource(new StringReader(body)));
 
         } catch (Exception e) {
