@@ -290,8 +290,11 @@ public class XXE {
             logger.info(body);
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            dbf.setXIncludeAware(true);   // 支持XInclude
-            dbf.setNamespaceAware(true);  // 支持XInclude
+            dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            dbf.setXIncludeAware(false);   // Disable XInclude processing
+            dbf.setNamespaceAware(true);  // Enable namespace awareness
             DocumentBuilder db = dbf.newDocumentBuilder();
             StringReader sr = new StringReader(body);
             InputSource is = new InputSource(sr);
